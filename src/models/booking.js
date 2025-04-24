@@ -27,7 +27,7 @@ module.exports = (sequelize, DataTypes) => {
         allowNull: false,
       },
       totalCost: { type: DataTypes.INTEGER, allowNull: false },
-      noOfSeats: { type: DataTypes.INTEGER, allowNull: false, defaultValue: 1 },
+      noOfSeats: { type: DataTypes.INTEGER, allowNull: false, defaultValue: 1 }, //this are the number of seats booked by the user
     },
     {
       sequelize,

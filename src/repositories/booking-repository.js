@@ -1,26 +1,18 @@
 const { StatusCodes } = require("http-status-codes");
 const { Booking } = require("../models");
 const CrudRepository = require("./crud-repository");
+// const booking = require("../models/booking");
 
 class BookingRepository extends CrudRepository {
   constructor() {
     super(Booking);
+    // console.log("Booking repository constructor called");
   }
-  // async getBookingByFlightIdAndUserId(flightId, userId) {
-  //     const response = await Booking.findOne({
-  //         where: {
-  //             flightId: flightId,
-  //             userId: userId,
-  //         },
-  //     });
-  //     if (!response) {
-  //         throw new AppError(
-  //             "Not able to find the resource",
-  //             StatusCodes.NOT_FOUND
-  //         );
-  //     }
-  //     return response;
-  // }
+
+  async createBooking(data, transaction) {
+    const response = await Booking.create(data, { transaction: transaction });
+    return response;
+  }
 }
 
 module.exports = BookingRepository;
