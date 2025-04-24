@@ -4,7 +4,6 @@ const { ErrorResponse, SuccessResponse } = require("../utils/common");
 
 const createBooking = async (req, res) => {
   try {
-    console.log(req.body, "body");
     const flight = await BookingService.createBooking({
       flightId: req.body.flightId,
       userId: req.body.userId,
@@ -13,7 +12,22 @@ const createBooking = async (req, res) => {
     SuccessResponse.data = flight;
     return res.status(StatusCodes.OK).json(SuccessResponse);
   } catch (error) {
-    console.log(error);
+    ErrorResponse.error = error;
+    return res.status(error?.statusCode).json(ErrorResponse);
+  }
+};
+
+
+const makePayment = async (req, res) => {
+  try {
+    const flight = await BookingService.makePayment({
+      totalCost: req.body.totalCost,
+      userId: req.body.userId,
+      bookingId: req.body.bookingId,
+    });
+    SuccessResponse.data = flight;
+    return res.status(StatusCodes.OK).json(SuccessResponse);
+  } catch (error) {
     ErrorResponse.error = error;
     return res.status(error?.statusCode).json(ErrorResponse);
   }
@@ -21,4 +35,5 @@ const createBooking = async (req, res) => {
 
 module.exports = {
   createBooking,
+  makePayment
 };
